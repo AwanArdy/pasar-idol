@@ -6,4 +6,5 @@ export interface IdolItem {
   price: number;
   image: string;
   condition: 'Sealed' | 'Unsealed';
+  description: string;
 }

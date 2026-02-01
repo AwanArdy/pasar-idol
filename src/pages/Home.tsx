@@ -5,7 +5,7 @@ import { ITEMS } from '../data/items';
 import type { IdolItem } from '../types/item';
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState('Semua');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Semua');
 
   const categories = [
     { label: 'Semua', value: 'Semua' },
@@ -45,7 +45,7 @@ function Home() {
               onClick={() => setSelectedCategory(cat.value)}
               className={`
                 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap
-                ${selectedCategory === cat.value
+                  ${selectedCategory === cat.value
                   ? 'bg-purple-500 text-white shadow-md shadow-purple-200 scale-105'
                   : 'bg-white text-gray-600 border border-gray-200 hover:border-purple-300 hover:text-purple-500'
                 }

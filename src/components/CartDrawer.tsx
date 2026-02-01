@@ -1,7 +1,10 @@
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
+import { useNavigate } from "react-router-dom";
 
 export const CartDrawer = () => {
+  const navigate = useNavigate();
+
   const {
     isOpen,
     toggleCart,
@@ -9,6 +12,11 @@ export const CartDrawer = () => {
     removeItem,
     getTotalPrice
   } = useCartStore();
+
+  const handleCheckout = () => {
+    toggleCart();
+    navigate('/checkout');
+  };
 
   const formatRupiah = (price: number) => {
     return new Intl.NumberFormat(
@@ -79,7 +87,10 @@ export const CartDrawer = () => {
               <span className="text-gray-600">Total</span>
               <span className="text-xl font-bold text-purple-600">{formatRupiah(getTotalPrice())}</span>
             </div>
-            <button className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-200">
+            <button 
+              onClick={handleCheckout}
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-purple-200"
+              >
               Checkout Sekarang
             </button>
           </div>

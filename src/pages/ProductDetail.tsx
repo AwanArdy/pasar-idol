@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ITEMS } from "../data/items";
 import { useCartStore } from "../store/useCartStore";
-import { ArrowLeft, ShoppingCart, ShieldCheck, Truck } from "lucide-react";
+import { ArrowLeft, ShoppingCart, ShieldCheck, Truck, Info } from "lucide-react";
 import { getGroupColors } from "../utils/groupColors";
 
 export const ProductDetail = () => {
@@ -31,7 +31,7 @@ export const ProductDetail = () => {
     <main className="max-w-7xl mx-auto px-4 py-8">
       <button 
         onClick={() => navigate(-1)} 
-        className="flex items-center gap-2 text-gray-600 hover:text-pink-500 mb-6 transition"
+        className="flex items-center gap-2 text-gray-600 hover:text-purple-500 mb-6 transition"
       >
         <ArrowLeft size={20} /> Kembali
       </button>
@@ -78,13 +78,25 @@ export const ProductDetail = () => {
           <div className="mt-auto pt-8 flex gap-4">
             <button 
               onClick={() => addItem(product)}
-              className="flex-1 bg-purple-500 hover:bg-pink-600 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-3 shadow-lg shadow-pink-200"
+              className="flex-1 bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-3 shadow-lg shadow-purple-200"
             >
               <ShoppingCart size={20} /> Tambah ke Keranjang
             </button>
           </div>
         </div>
+        <div className="margin-auto">
+          <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-start gap-2">
+            <Info size={20} className="text-gray-900" />
+            Detail dan Deskripsi
+          </h3>
+
+          <div className="prose prose-purple max-w-none text-gray-600 leading-relaxed text-sm md:text-base">
+            <p className="whitespace-pre-line">
+              {product.description || "Belum ada deskripsi untuk produk ini"}
+            </p>
+          </div>
+        </div>
       </div>
-    </main>
+  </main>
   );
 }
