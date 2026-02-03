@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
 import { MapPin, CreditCard, Wallet, Truck, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import type { Order } from "../types/order";
 
 export const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCartStore();
@@ -40,6 +41,21 @@ export const Checkout = () => {
     setIsProcessing(true);
 
     setTimeout(() => {
+      const newOrder: Order = {
+        id: `TRX-${Date.now()}`,
+        date: new Date().toLocaleDateString('id-ID', {
+          day: 'numeric', month: 'long', year: 'numeric'
+        }),
+        items: [...items],
+        total: total,
+        status: 'Selesai',
+        paymentMethod: paymentMethod === 'qris' ? 'QRIS' : 'Virtual Account'
+      };
+
+      const existingOrders = JSON.parse(localStorage.getItem('idol_orders') || '[]');
+
+      localStorage.setItem('idol_orders', JSON.stringify([newOrder, ...existingOrders]))
+
       setIsProcessing(false);
       setIsSuccess(true);
       clearCart();

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ShoppingBag, Search, X } from "lucide-react";
+import { ShoppingBag, Search, X, User } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 import { Link, useNavigate } from "react-router-dom";
 import { ITEMS } from "../data/items";
@@ -136,6 +136,7 @@ export const Navbar = () => {
           )}
         </div>
 
+        <div className="flex items-center gap-2">
         {/* Menu */}
         <button
           onClick={toggleCart}
@@ -148,6 +149,16 @@ export const Navbar = () => {
             </span>
           )}
         </button>
+
+        {/* Profil */}
+        <Link
+          to="/profile"
+          className="p-2 hover:bg-gray-100 rounded-full transition text-gray-600 hover:text-purple-500"
+          title="Profil Saya"
+        >
+          <User size={24} />
+        </Link>
+        </div>
       </div>
     </nav>
   );

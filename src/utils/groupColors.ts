@@ -3,7 +3,7 @@ export const getGroupColors = (groupName: string) => {
 
   switch (group) {
     case "Nogizaka46":
-      return 'text-[#99409C]';
+    return 'text-[#99409C]';
 
     case "Hinatazaka46":
       return 'text-[#5BBEE4]';

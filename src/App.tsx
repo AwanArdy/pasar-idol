@@ -5,6 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { CartDrawer } from "./components/CartDrawer";
 import { SearchResults } from "./pages/SearchResults";
 import { Checkout } from "./pages/Checkout";
+import { Profile } from "./pages/Profile";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
