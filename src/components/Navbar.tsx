@@ -32,7 +32,6 @@ export const Navbar = () => {
     }
   }, [query]);
 
-  // handle enter
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
@@ -64,10 +63,8 @@ export const Navbar = () => {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center gap-4">
 
-        {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-purple-800 flex-shrink-0">PasarIdol ◢</Link> 
 
-        {/* Search Bar */}
         <div className="flex-1 max-w-lg relative" ref={searchRef}>
           <form onSubmit={handleSearchSubmit} className="relative group">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">

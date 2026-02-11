@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
-import { MapPin, CreditCard, Wallet, Truck, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import { MapPin, CreditCard, Wallet, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 import type { Order } from "../types/order";
 
 export const Checkout = () => {
@@ -129,7 +129,7 @@ export const Checkout = () => {
               <div className="space-y-3 max-h-60 overflow-y-auto pr-2 mb-4 custom-scrollbar">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 text-sm">
-                    <img src={item.image} className="w-12 h-12 rounded bg-gray-100 object-cover flex-shrink-0" />
+                    <img src={item.image} className="w-12 h-12 rounded bg-gray-100 object-cover shrink-0" />
                     <div className="flex-1">
                       <p className="line-clamp-1 font-medium">{item.name}</p>
                       <p className="text-gray-500 text-xs">{item.quantity} x {formatRupiah(item.price)}</p>
@@ -171,7 +171,7 @@ export const Checkout = () => {
       </div>
 
       {(isProcessing || isSuccess) && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-70 flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl animate-scale-in">
             
             {isProcessing ? (

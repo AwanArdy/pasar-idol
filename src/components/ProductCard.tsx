@@ -43,7 +43,7 @@ export const ProductCard = ({ item }: Props) => {
       </div>
 
       {/* Info Produk */}
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col grow">
         <p className={`text-[10px] ${badgeColorClass} font-bold mb-1`}>{item.group}</p>
         
         <Link to={`/product/${item.id}`}>

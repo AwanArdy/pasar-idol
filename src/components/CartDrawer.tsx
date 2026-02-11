@@ -1,4 +1,4 @@
-import { X, Trash2, Plus, Minus } from "lucide-react";
+import { X, Trash2 } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ export const CartDrawer = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60]">
+    <div className="fixed inset-0 z-60">
       {/* Backdrop (Background gelap) */}
       <div 
         className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
