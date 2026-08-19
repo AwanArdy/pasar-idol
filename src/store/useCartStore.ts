@@ -10,6 +10,7 @@ interface CartStore {
   isOpen: boolean;
 
   addItem: (item: IdolItem) => void;
+  decrementItem: (id: number) => void;
   removeItem: (id: number) => void;
   toggleCart: () => void;
   getTotalPrice: () => number;
@@ -35,6 +36,23 @@ export const useCartStore = create<CartStore>((set, get) => ({
       } else {
         return { items: [...state.items, { ...product, quantity: 1 }] };
       }
+    });
+  },
+
+  decrementItem: (id) => {
+    set((state) => {
+      const existingItem = state.items.find((item) => item.id === id);
+      if (!existingItem) return state;
+
+      if (existingItem.quantity <= 1) {
+        return { items: state.items.filter((item) => item.id !== id) };
+      }
+
+      return {
+        items: state.items.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        ),
+      };
     });
   },
 

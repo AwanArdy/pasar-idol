@@ -26,12 +26,13 @@ export const ProductCard = ({ item }: Props) => {
   const badgeColorClass = getGroupColors(item.group);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
+    <article className="group card-hover flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
       <div className="relative aspect-square overflow-hidden bg-gray-100">
         <Link to={`/product/${item.id}`} className="block h-full w-full">
           <img
             src={item.image}
             alt={item.name}
+            loading="lazy"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
             onError={(e) => {
               e.currentTarget.style.visibility = "hidden";
@@ -41,6 +42,14 @@ export const ProductCard = ({ item }: Props) => {
             {item.condition}
           </span>
         </Link>
+
+        <button
+          onClick={handleAddToCart}
+          className="absolute right-2.5 bottom-2.5 flex h-9 w-9 translate-y-1 items-center justify-center rounded-full bg-gray-900/90 text-white opacity-0 shadow-lg backdrop-blur-sm transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-purple-600 active:scale-90 sm:h-10 sm:w-10"
+          aria-label={`Tambah ${item.name} ke keranjang`}
+        >
+          <ShoppingCart size={16} />
+        </button>
       </div>
 
       <div className="flex grow flex-col p-3.5 sm:p-4">
@@ -49,7 +58,7 @@ export const ProductCard = ({ item }: Props) => {
         </p>
 
         <Link to={`/product/${item.id}`}>
-          <h3 className="mb-3 line-clamp-2 min-h-10 text-sm leading-snug font-medium text-gray-800 transition group-hover:text-gray-900 sm:text-[15px]">
+          <h3 className="mb-3 line-clamp-2 min-h-10 text-sm leading-snug font-medium text-gray-800 transition group-hover:text-purple-600 sm:text-[15px]">
             {item.name}
           </h3>
         </Link>
@@ -60,11 +69,10 @@ export const ProductCard = ({ item }: Props) => {
           </span>
           <button
             onClick={handleAddToCart}
-            className="flex items-center gap-1.5 rounded-xl bg-gray-900 px-2.5 py-2 text-xs font-medium text-white transition hover:bg-gray-800 active:scale-95 sm:px-3 sm:text-sm"
+            className="flex items-center gap-1.5 rounded-xl bg-gray-900 px-2.5 py-2 text-xs font-medium text-white transition hover:bg-purple-600 active:scale-95 sm:hidden"
             aria-label={`Tambah ${item.name} ke keranjang`}
           >
             <ShoppingCart size={15} />
-            <span className="hidden sm:inline">Beli</span>
           </button>
         </div>
       </div>

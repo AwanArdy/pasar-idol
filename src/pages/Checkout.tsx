@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
-import { MapPin, CreditCard, Wallet, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import { MapPin, CreditCard, Wallet, ArrowLeft, CheckCircle2, Loader2, ShoppingBag } from "lucide-react";
 import type { Order } from "../types/order";
 
 export const Checkout = () => {
@@ -62,10 +62,12 @@ export const Checkout = () => {
   };
 
   const fieldClass =
-    "w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm transition focus:border-purple-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-100";
+    "w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm transition placeholder:text-gray-400 focus:border-purple-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-100";
+
+  const sectionCard = "rounded-2xl border border-gray-100 bg-white p-5 shadow-sm md:p-6";
 
   return (
-    <div className="relative px-4 py-8">
+    <div className="relative px-4 py-6 md:px-6 md:py-10">
       <div className="mx-auto max-w-6xl">
         <button
           onClick={() => navigate(-1)}
@@ -77,9 +79,9 @@ export const Checkout = () => {
           Checkout & Pembayaran
         </h1>
 
-        <form onSubmit={handlePayment} className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <form onSubmit={handlePayment} className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           <div className="space-y-6 lg:col-span-2">
-            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <div className={sectionCard}>
               <h2 className="mb-5 flex items-center gap-2 text-lg font-bold">
                 <MapPin className="text-purple-500" size={20} /> Alamat Pengiriman
               </h2>
@@ -104,7 +106,7 @@ export const Checkout = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <div className={sectionCard}>
               <h2 className="mb-5 flex items-center gap-2 text-lg font-bold">
                 <CreditCard className="text-purple-500" size={20} /> Metode Pembayaran
               </h2>
@@ -129,6 +131,7 @@ export const Checkout = () => {
                     className={paymentMethod === "qris" ? "text-purple-500" : "text-gray-400"}
                   />
                   <span className="text-sm font-semibold">QRIS</span>
+                  <span className="text-xs text-gray-400">Scan sekali, bayar instan</span>
                 </label>
 
                 <label
@@ -151,20 +154,25 @@ export const Checkout = () => {
                     className={paymentMethod === "va" ? "text-purple-500" : "text-gray-400"}
                   />
                   <span className="text-sm font-semibold">Virtual Account</span>
+                  <span className="text-xs text-gray-400">Transfer dari bank mana saja</span>
                 </label>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-24 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-              <h2 className="mb-4 text-lg font-bold">Ringkasan Pesanan</h2>
+            <div className="sticky top-24 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm md:p-6">
+              <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
+                <ShoppingBag size={18} className="text-purple-500" />
+                Ringkasan Pesanan
+              </h2>
 
               <div className="custom-scrollbar mb-4 max-h-60 space-y-3 overflow-y-auto pr-2">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 text-sm">
                     <img
                       src={item.image}
+                      alt={item.name}
                       className="h-12 w-12 shrink-0 rounded-lg bg-gray-100 object-cover"
                     />
                     <div className="min-w-0 flex-1">
@@ -173,6 +181,9 @@ export const Checkout = () => {
                         {item.quantity} x {formatRupiah(item.price)}
                       </p>
                     </div>
+                    <span className="shrink-0 text-sm font-semibold text-gray-700">
+                      {formatRupiah(item.price * item.quantity)}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -199,10 +210,13 @@ export const Checkout = () => {
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-purple-500 py-3.5 font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-purple-600 disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-purple-500 py-3.5 font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-purple-600 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isProcessing ? "Memproses..." : "Bayar Sekarang"}
               </button>
+              <p className="mt-3 text-center text-[11px] leading-relaxed text-gray-400">
+                Dengan menekan tombol bayar, kamu menyetujui syarat & ketentuan PasarIdol.
+              </p>
             </div>
           </div>
         </form>
@@ -230,7 +244,13 @@ export const Checkout = () => {
                   Terima kasih sudah berbelanja. Paketmu akan segera kami siapkan.
                 </p>
 
-                <div className="mt-6 w-full">
+                <div className="mt-6 flex w-full flex-col gap-3">
+                  <button
+                    onClick={() => navigate("/profile")}
+                    className="w-full rounded-xl bg-purple-500 py-3 font-medium text-white shadow-md shadow-purple-200 transition hover:bg-purple-600"
+                  >
+                    Lihat Riwayat Pesanan
+                  </button>
                   <button
                     onClick={() => navigate("/")}
                     className="w-full rounded-xl bg-gray-900 py-3 font-medium text-white transition hover:bg-black"

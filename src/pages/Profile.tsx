@@ -1,17 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Order } from "../types/order";
-import { User, Package, Calendar, Clock, ChevronRight, LogOut } from "lucide-react";
+import {
+  User,
+  Package,
+  Calendar,
+  Clock,
+  ChevronRight,
+  LogOut,
+  ShoppingBag,
+  Wallet,
+  Receipt,
+} from "lucide-react";
 import { getGroupColors } from "../utils/groupColors";
 
 export const Profile = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-
-  useEffect(() => {
-    const savedOrders = localStorage.getItem("idol_orders");
-    if (savedOrders) {
-      setOrders(JSON.parse(savedOrders));
+  const [orders] = useState<Order[]>(() => {
+    try {
+      const savedOrders = localStorage.getItem("idol_orders");
+      return savedOrders ? (JSON.parse(savedOrders) as Order[]) : [];
+    } catch {
+      return [];
     }
-  }, []);
+  });
 
   const formatRupiah = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -21,13 +31,40 @@ export const Profile = () => {
     }).format(price);
   };
 
+  const totalItems = orders.reduce(
+    (acc, order) => acc + order.items.reduce((a, item) => a + item.quantity, 0),
+    0
+  );
+  const totalSpending = orders.reduce((acc, order) => acc + order.total, 0);
+
+  const stats = [
+    {
+      icon: ShoppingBag,
+      label: "Total Pesanan",
+      value: orders.length,
+    },
+    {
+      icon: Package,
+      label: "Total Barang",
+      value: totalItems,
+    },
+    {
+      icon: Wallet,
+      label: "Total Belanja",
+      value: formatRupiah(totalSpending),
+    },
+  ];
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-10">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
         <div className="lg:col-span-1">
           <div className="sticky top-24 rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
-            <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-purple-100">
-              <User size={40} className="text-purple-500" />
+            <div className="relative mx-auto mb-4 h-24 w-24">
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-purple-100 ring-4 ring-purple-50">
+                <User size={40} className="text-purple-500" />
+              </div>
+              <span className="absolute right-0 bottom-0 h-5 w-5 rounded-full border-2 border-white bg-green-500" />
             </div>
             <h2 className="text-xl font-bold text-gray-800">Guest User</h2>
             <p className="mb-6 text-sm text-gray-500">Idol Collector sejak 2024</p>
@@ -53,9 +90,30 @@ export const Profile = () => {
             <Clock className="text-purple-500" /> Riwayat Pesanan
           </h1>
 
+          {orders.length > 0 && (
+            <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {stats.map(({ icon: Icon, label, value }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-50">
+                    <Icon size={19} className="text-purple-500" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-medium text-gray-400 uppercase">{label}</p>
+                    <p className="truncate text-base font-extrabold text-gray-900">{value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {orders.length === 0 ? (
             <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center shadow-sm">
-              <Package size={56} className="mx-auto mb-4 text-gray-200" />
+              <span className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-purple-50">
+                <Package size={32} className="text-purple-300" />
+              </span>
               <h3 className="text-lg font-bold text-gray-800">Belum ada pesanan</h3>
               <p className="mt-1 text-gray-500">Yuk mulai koleksi merchandise idolamu!</p>
             </div>
@@ -66,8 +124,8 @@ export const Profile = () => {
                   key={order.id}
                   className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 bg-gray-50 px-6 py-4">
-                    <div className="flex flex-wrap gap-6 text-sm">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 bg-gray-50 px-5 py-4 md:px-6">
+                    <div className="flex flex-wrap gap-4 text-sm sm:gap-6">
                       <div>
                         <span className="mb-0.5 block text-xs text-gray-500">Tanggal</span>
                         <span className="flex items-center gap-1 font-medium">
@@ -80,7 +138,10 @@ export const Profile = () => {
                       </div>
                       <div>
                         <span className="mb-0.5 block text-xs text-gray-500">Status</span>
-                        <span className="font-bold text-green-600">{order.status}</span>
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-bold text-green-600">
+                          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                          {order.status}
+                        </span>
                       </div>
                     </div>
                     <div>
@@ -91,7 +152,7 @@ export const Profile = () => {
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5 md:p-6">
                     <div className="space-y-4">
                       {order.items.map((item) => {
                         const badgeClass = getGroupColors(item.group);
@@ -125,8 +186,9 @@ export const Profile = () => {
                       })}
                     </div>
 
-                    <div className="mt-6 flex items-center justify-between border-t border-dashed border-gray-200 pt-4">
-                      <span className="text-xs text-gray-500">
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-gray-200 pt-4">
+                      <span className="flex items-center gap-1.5 text-xs text-gray-500">
+                        <Receipt size={14} />
                         Metode Bayar: {order.paymentMethod}
                       </span>
                       <button className="flex items-center gap-1 text-sm font-medium text-purple-500 hover:underline">

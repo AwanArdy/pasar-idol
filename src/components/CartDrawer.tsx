@@ -1,11 +1,12 @@
-import { X, Trash2, ShoppingBag } from "lucide-react";
+import { X, Trash2, ShoppingBag, Minus, Plus } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
 
 export const CartDrawer = () => {
   const navigate = useNavigate();
 
-  const { isOpen, toggleCart, items, removeItem, getTotalPrice } = useCartStore();
+  const { isOpen, toggleCart, items, addItem, decrementItem, removeItem, getTotalPrice } =
+    useCartStore();
 
   const handleCheckout = () => {
     toggleCart();
@@ -48,14 +49,20 @@ export const CartDrawer = () => {
           </button>
         </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto p-5">
+        <div className="flex-1 space-y-4 overflow-y-auto p-5 custom-scrollbar">
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center text-gray-400">
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-                <ShoppingBag size={28} className="text-gray-300" />
+              <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-purple-50">
+                <ShoppingBag size={32} className="text-purple-300" />
               </div>
-              <p className="font-medium text-gray-500">Keranjangmu masih kosong nih.</p>
-              <p className="mt-1 text-sm">Yuk cari merch oshi mu!</p>
+              <p className="font-medium text-gray-600">Keranjangmu masih kosong nih.</p>
+              <p className="mt-1 text-sm text-gray-400">Yuk cari merch oshi mu!</p>
+              <button
+                onClick={toggleCart}
+                className="mt-6 rounded-xl bg-purple-500 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-purple-200 transition hover:bg-purple-600 active:scale-95"
+              >
+                Mulai Belanja
+              </button>
             </div>
           ) : (
             items.map((item) => (
@@ -66,20 +73,45 @@ export const CartDrawer = () => {
                   className="h-20 w-20 rounded-xl bg-gray-100 object-cover"
                 />
                 <div className="min-w-0 flex-1">
-                  <h3 className="line-clamp-2 text-sm font-semibold text-gray-800">{item.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-purple-500">{formatRupiah(item.price)}</p>
-
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-500">
-                      Qty: {item.quantity}
-                    </span>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="line-clamp-2 text-sm font-semibold text-gray-800">
+                      {item.name}
+                    </h3>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-gray-400 transition hover:text-red-500"
+                      className="shrink-0 text-gray-300 transition hover:text-red-500"
                       aria-label={`Hapus ${item.name}`}
                     >
                       <Trash2 size={16} />
                     </button>
+                  </div>
+                  <p className="mt-1 text-sm font-medium text-purple-500">
+                    {formatRupiah(item.price)}
+                  </p>
+
+                  <div className="mt-2 flex items-center justify-between">
+                    <div className="flex items-center gap-1 rounded-full border border-gray-200 bg-gray-50 p-1">
+                      <button
+                        onClick={() => decrementItem(item.id)}
+                        className="flex h-6 w-6 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200"
+                        aria-label={`Kurangi jumlah ${item.name}`}
+                      >
+                        <Minus size={13} />
+                      </button>
+                      <span className="w-7 text-center text-xs font-bold text-gray-800">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => addItem(item)}
+                        className="flex h-6 w-6 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200"
+                        aria-label={`Tambah jumlah ${item.name}`}
+                      >
+                        <Plus size={13} />
+                      </button>
+                    </div>
+                    <span className="text-sm font-bold text-gray-900">
+                      {formatRupiah(item.price * item.quantity)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -95,7 +127,7 @@ export const CartDrawer = () => {
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full rounded-xl bg-purple-500 py-3 font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-purple-600"
+              className="w-full rounded-xl bg-purple-500 py-3 font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-purple-600 active:scale-[0.99]"
             >
               Checkout Sekarang
             </button>
