@@ -1,22 +1,42 @@
-import { useState, useEffect, useRef } from "react";
-import { ShoppingBag, Search, X, User, TrendingUp } from "lucide-react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { ShoppingBag, Search, X, User, TrendingUp, Heart } from "lucide-react";
 import { useCartStore } from "../store/useCartStore";
+import { useWishlistStore } from "../store/useWishlistStore";
 import { Link, useNavigate } from "react-router-dom";
 import { ITEMS } from "../data/items";
 import type { IdolItem } from "../types/item";
+import { formatRupiah } from "../utils/formatRupiah";
+
+const POPULAR_TAGS = [
+  "Nogizaka46",
+  "Hinatazaka46",
+  "Sakurazaka46",
+  "PhotoPack",
+  "Lightstick",
+  "T-Shirt",
+] as const;
+
+const groupedResults = (results: IdolItem[]) => {
+  const groups: Record<string, IdolItem[]> = {};
+  results.forEach((item) => {
+    (groups[item.group] ||= []).push(item);
+  });
+  return Object.entries(groups);
+};
 
 export const Navbar = () => {
   const itemsInCart = useCartStore((state) => state.items);
   const toggleCart = useCartStore((state) => state.toggleCart);
+  const wishlistCount = useWishlistStore((state) => state.items.length);
   const totalItems = itemsInCart.reduce((acc, item) => acc + item.quantity, 0);
 
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<IdolItem[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -25,19 +45,13 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (query.length > 0) {
-      const filtered = ITEMS.filter(
-        (item) =>
-          item.name.toLowerCase().includes(query.toLowerCase()) ||
-          item.group.toLowerCase().includes(query.toLowerCase())
-      );
-      setResults(filtered);
-      setShowDropdown(true);
-    } else {
-      setResults([]);
-      setShowDropdown(false);
-    }
+  const results = useMemo(() => {
+    if (query.length === 0) return [];
+    return ITEMS.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.group.toLowerCase().includes(query.toLowerCase())
+    );
   }, [query]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -48,13 +62,6 @@ export const Navbar = () => {
     }
   };
 
-  const formatRupiah = (price: number) =>
-    new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
-    }).format(price);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
@@ -64,14 +71,6 @@ export const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const groupedResults = (results: IdolItem[]) => {
-    const groups: Record<string, IdolItem[]> = {};
-    results.forEach((item) => {
-      (groups[item.group] ||= []).push(item);
-    });
-    return Object.entries(groups);
-  };
 
   return (
     <nav
@@ -90,6 +89,13 @@ export const Navbar = () => {
             PasarIdol <span className="text-purple-500">◢</span>
           </Link>
 
+          <Link
+            to="/katalog"
+            className="hidden shrink-0 text-sm font-semibold text-gray-600 transition hover:text-purple-500 md:inline-flex"
+          >
+            Katalog
+          </Link>
+
           <div
             className="relative order-3 w-full basis-full md:order-none md:basis-auto md:flex-1 md:max-w-xl md:mx-auto"
             ref={searchRef}
@@ -102,17 +108,22 @@ export const Navbar = () => {
                 />
               </div>
               <input
+                ref={inputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => query && setShowDropdown(true)}
+                onFocus={() => setShowDropdown(true)}
                 placeholder="Cari barang, grup, atau member"
                 className="w-full rounded-full border border-transparent bg-gray-100 py-2.5 pl-10 pr-10 text-sm transition placeholder:text-gray-400 focus:border-purple-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
               {query && (
                 <button
                   type="button"
-                  onClick={() => setQuery("")}
+                  onClick={() => {
+                    setQuery("");
+                    setShowDropdown(true);
+                    inputRef.current?.focus();
+                  }}
                   className="absolute inset-y-0 right-3 flex items-center text-gray-400 transition hover:text-gray-600"
                   aria-label="Hapus pencarian"
                 >
@@ -178,6 +189,59 @@ export const Navbar = () => {
                 <p className="mt-1 text-xs text-gray-400">Coba kata kunci lain, ya!</p>
               </div>
             )}
+
+            {showDropdown && query.length === 0 && (
+              <div className="animate-fade-in-down absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl shadow-gray-100/70">
+                <div className="p-4">
+                  <p className="mb-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                    Pencarian Populer
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {POPULAR_TAGS.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => {
+                          setShowDropdown(false);
+                          navigate(`/search?q=${encodeURIComponent(tag)}`);
+                        }}
+                        className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-purple-300 hover:text-purple-600"
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-100">
+                  <p className="px-4 pt-3 pb-2 text-[10px] font-bold tracking-widest text-gray-400 uppercase">
+                    Produk Pilihan
+                  </p>
+                  <div className="p-1.5">
+                    {ITEMS.slice(0, 3).map((item) => (
+                      <Link
+                        key={item.id}
+                        to={`/product/${item.id}`}
+                        onClick={() => setShowDropdown(false)}
+                        className="flex items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-purple-50"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="h-11 w-11 shrink-0 rounded-lg bg-gray-100 object-cover"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-gray-800">{item.name}</p>
+                          <p className="text-xs text-purple-500">{item.condition}</p>
+                        </div>
+                        <span className="shrink-0 text-xs font-semibold text-gray-600">
+                          {formatRupiah(item.price)}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="ml-auto flex shrink-0 items-center gap-1">
@@ -188,11 +252,31 @@ export const Navbar = () => {
             >
               <ShoppingBag size={22} />
               {totalItems > 0 && (
-                <span className="absolute top-0.5 right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-purple-500 px-1 text-[10px] font-bold text-white">
+                <span
+                  key={totalItems}
+                  className="animate-badge-pop absolute top-0.5 right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-purple-500 px-1 text-[10px] font-bold text-white"
+                >
                   {totalItems}
                 </span>
               )}
             </button>
+
+            <Link
+              to="/wishlist"
+              className="relative rounded-full p-2 text-gray-600 transition hover:bg-gray-100 hover:text-red-500"
+              title="Wishlist Saya"
+              aria-label="Wishlist Saya"
+            >
+              <Heart size={22} />
+              {wishlistCount > 0 && (
+                <span
+                  key={wishlistCount}
+                  className="animate-badge-pop absolute top-0.5 right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white"
+                >
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
 
             <Link
               to="/profile"

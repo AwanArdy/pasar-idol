@@ -1,24 +1,27 @@
 import { X, Trash2, ShoppingBag, Minus, Plus } from "lucide-react";
+import { useRef } from "react";
 import { useCartStore } from "../store/useCartStore";
+import { useToastStore } from "../store/useToastStore";
 import { useNavigate } from "react-router-dom";
+import { useScrollLock } from "../hooks/useScrollLock";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { formatRupiah } from "../utils/formatRupiah";
 
 export const CartDrawer = () => {
   const navigate = useNavigate();
 
   const { isOpen, toggleCart, items, addItem, decrementItem, removeItem, getTotalPrice } =
     useCartStore();
+  const showToast = useToastStore((state) => state.showToast);
+
+  const drawerRef = useRef<HTMLDivElement>(null);
+
+  useScrollLock(isOpen);
+  useFocusTrap(drawerRef, isOpen);
 
   const handleCheckout = () => {
     toggleCart();
     navigate("/checkout");
-  };
-
-  const formatRupiah = (price: number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
   };
 
   if (!isOpen) return null;
@@ -30,7 +33,11 @@ export const CartDrawer = () => {
         onClick={toggleCart}
       />
 
-      <div className="animate-slide-in absolute top-0 right-0 flex h-full w-full max-w-md flex-col bg-white shadow-xl">
+      <div
+        ref={drawerRef}
+        tabIndex={-1}
+        className="animate-slide-in absolute top-0 right-0 flex h-full w-full max-w-md flex-col bg-white shadow-xl"
+      >
         <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-5 py-4">
           <div>
             <h2 className="text-lg font-bold text-gray-800">Keranjang Belanja</h2>
@@ -102,8 +109,12 @@ export const CartDrawer = () => {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => addItem(item)}
-                        className="flex h-6 w-6 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200"
+                        onClick={() => {
+                          addItem(item);
+                          showToast(item.name, "Ditambahkan ke keranjang");
+                        }}
+                        disabled={item.quantity >= item.stock}
+                        className="flex h-6 w-6 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-30"
                         aria-label={`Tambah jumlah ${item.name}`}
                       >
                         <Plus size={13} />

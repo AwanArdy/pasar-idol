@@ -1,27 +1,9 @@
-import { useState } from "react";
-import { ProductCard } from "../components/ProductCard";
+import { ProductBrowser } from "../components/ProductBrowser";
 import { ITEMS } from "../data/items";
-import type { IdolItem } from "../types/item";
 import { Sparkles, ArrowRight, Package, ShieldCheck, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
-
-  const categories = [
-    { label: "Semua", value: "Semua" },
-    { label: "PhotoPack", value: "PhotoPack" },
-    { label: "Lightstick", value: "Lightstick" },
-    { label: "T-Shirt", value: "T-Shirt" },
-    { label: "Towel", value: "Towel" },
-    { label: "Acrylic", value: "Acrylic" },
-  ];
-
-  const filteredItems =
-    selectedCategory === "Semua"
-      ? ITEMS
-      : ITEMS.filter((item) => item.category === selectedCategory);
-
   const trustItems = [
     { icon: ShieldCheck, label: "100% Original" },
     { icon: Truck, label: "Extra Bubble Wrap" },
@@ -44,13 +26,13 @@ function Home() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a
-              href="#katalog"
+            <Link
+              to="/katalog"
               className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-purple-600 shadow-md transition hover:bg-purple-50 active:scale-95"
             >
               Jelajahi Katalog
               <ArrowRight size={16} />
-            </a>
+            </Link>
             <span className="text-sm text-white/80">
               {ITEMS.length}+ produk tersedia
             </span>
@@ -77,51 +59,9 @@ function Home() {
         ))}
       </section>
 
-      <div
-        id="katalog"
-        className="scrollbar-hide sticky top-[110px] z-40 -mx-4 mt-10 mb-6 flex gap-2 overflow-x-auto bg-gray-50/90 px-4 py-3 backdrop-blur-sm md:top-[73px] md:mx-0 md:px-0"
-      >
-        {categories.map((cat) => (
-          <button
-            key={cat.value}
-            onClick={() => setSelectedCategory(cat.value)}
-            className={`rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-              selectedCategory === cat.value
-                ? "scale-[1.02] bg-purple-500 text-white shadow-md shadow-purple-200"
-                : "border border-gray-200 bg-white text-gray-600 hover:border-purple-300 hover:text-purple-500"
-            }`}
-          >
-            {cat.label}
-          </button>
-        ))}
+      <div id="katalog" className="mt-10 md:mt-12">
+        <ProductBrowser />
       </div>
-
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-bold tracking-tight text-gray-900 md:text-xl">
-          {selectedCategory === "Semua" ? "Katalog Produk" : `Kategori ${selectedCategory}`}
-        </h2>
-        <span className="text-xs font-medium text-gray-400">
-          {filteredItems.length} barang
-        </span>
-      </div>
-
-      {filteredItems.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:gap-6">
-          {filteredItems.map((item: IdolItem) => (
-            <ProductCard key={item.id} item={item} />
-          ))}
-        </div>
-      ) : (
-        <div className="py-20 text-center">
-          <p className="text-lg text-gray-400">Barang di kategori ini belum tersedia :(</p>
-          <button
-            onClick={() => setSelectedCategory("Semua")}
-            className="mt-4 font-medium text-purple-500 hover:underline"
-          >
-            Kembali ke Semua
-          </button>
-        </div>
-      )}
 
       <section className="mt-12 overflow-hidden rounded-3xl bg-white p-8 text-center shadow-sm md:p-10">
         <Link to="/profile" className="group inline-flex flex-col items-center">

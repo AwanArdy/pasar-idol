@@ -1,8 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCartStore } from "../store/useCartStore";
 import { useNavigate } from "react-router-dom";
 import { MapPin, CreditCard, Wallet, ArrowLeft, CheckCircle2, Loader2, ShoppingBag } from "lucide-react";
 import type { Order } from "../types/order";
+import { useScrollLock } from "../hooks/useScrollLock";
+import { useFocusTrap } from "../hooks/useFocusTrap";
+import { formatRupiah } from "../utils/formatRupiah";
+
+interface ShippingForm {
+  name: string;
+  phone: string;
+  address: string;
+}
+
+type ShippingErrors = Partial<Record<keyof ShippingForm, string>>;
 
 export const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCartStore();
@@ -10,8 +21,21 @@ export const Checkout = () => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
   const [paymentMethod, setPaymentMethod] = useState("qris");
+  const [shipping, setShipping] = useState<ShippingForm>({ name: "", phone: "", address: "" });
+  const [errors, setErrors] = useState<ShippingErrors>({});
+
+  const timerRef = useRef<number | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useScrollLock(isProcessing || isSuccess);
+  useFocusTrap(overlayRef, isProcessing || isSuccess);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const subTotal = getTotalPrice();
   const shippingCost = 15000;
@@ -24,20 +48,34 @@ export const Checkout = () => {
     }
   }, [items, navigate, isSuccess]);
 
-  const formatRupiah = (price: number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
+  const updateField = (field: keyof ShippingForm, value: string) => {
+    setShipping((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validate = (): ShippingErrors => {
+    const next: ShippingErrors = {};
+    if (!shipping.name.trim()) next.name = "Nama penerima wajib diisi";
+    const phoneDigits = shipping.phone.replace(/\D/g, "");
+    if (!/^08\d{7,13}$/.test(phoneDigits)) {
+      next.phone = "Nomor HP harus diawali 08 (9–15 digit)";
+    }
+    if (!shipping.address.trim()) next.address = "Alamat lengkap wajib diisi";
+    return next;
   };
 
   const handlePayment = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
     setIsProcessing(true);
 
-    setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       const newOrder: Order = {
         id: `TRX-${Date.now()}`,
         date: new Date().toLocaleDateString("id-ID", {
@@ -47,7 +85,7 @@ export const Checkout = () => {
         }),
         items: [...items],
         total: total,
-        status: "Selesai",
+        status: "Diproses",
         paymentMethod: paymentMethod === "qris" ? "QRIS" : "Virtual Account",
       };
 
@@ -88,20 +126,40 @@ export const Checkout = () => {
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-500">Nama Penerima</label>
-                  <input required type="text" className={fieldClass} placeholder="Contoh: Akari" />
+                  <input
+                    required
+                    type="text"
+                    value={shipping.name}
+                    onChange={(e) => updateField("name", e.target.value)}
+                    className={`${fieldClass} ${errors.name ? "border-red-300 focus:border-red-300 focus:ring-red-100" : ""}`}
+                    placeholder="Contoh: Akari"
+                  />
+                  {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-500">Nomor HP</label>
-                  <input required type="tel" className={fieldClass} placeholder="0812..." />
+                  <input
+                    required
+                    type="tel"
+                    inputMode="numeric"
+                    value={shipping.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                    className={`${fieldClass} ${errors.phone ? "border-red-300 focus:border-red-300 focus:ring-red-100" : ""}`}
+                    placeholder="0812..."
+                  />
+                  {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
                 </div>
                 <div className="space-y-1.5 md:col-span-2">
                   <label className="text-xs font-bold text-gray-500">Alamat Lengkap</label>
                   <textarea
                     required
                     rows={3}
-                    className={fieldClass}
+                    value={shipping.address}
+                    onChange={(e) => updateField("address", e.target.value)}
+                    className={`${fieldClass} ${errors.address ? "border-red-300 focus:border-red-300 focus:ring-red-100" : ""}`}
                     placeholder="Jalan, No. Rumah, Kecamatan, Kota"
                   />
+                  {errors.address && <p className="text-xs text-red-500">{errors.address}</p>}
                 </div>
               </div>
             </div>
@@ -223,7 +281,11 @@ export const Checkout = () => {
       </div>
 
       {(isProcessing || isSuccess) && (
-        <div className="fixed inset-0 z-70 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+        <div
+          ref={overlayRef}
+          tabIndex={-1}
+          className="fixed inset-0 z-70 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+        >
           <div className="animate-scale-in w-full max-w-sm rounded-3xl bg-white p-8 text-center shadow-2xl">
             {isProcessing ? (
               <div className="flex flex-col items-center py-6">

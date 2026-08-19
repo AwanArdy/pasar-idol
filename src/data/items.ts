@@ -9,6 +9,7 @@ export const ITEMS: IdolItem[] = [
     price: 500000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/JhUW-8-2024-02-29-08-26-09/65e03fa15d987",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -20,6 +21,7 @@ export const ITEMS: IdolItem[] = [
     price: 200000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/KEnT-8-2026-01-29-05-25-57/697aef659ec43",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -31,6 +33,7 @@ export const ITEMS: IdolItem[] = [
     price: 600000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/h3Nb-8-2023-08-09-08-39-47/64d350d33ba82",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -42,6 +45,7 @@ export const ITEMS: IdolItem[] = [
     price: 400000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/3viA-8-2025-03-31-07-59-17/67ea4b554b633",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -53,6 +57,7 @@ export const ITEMS: IdolItem[] = [
     price: 200000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/uD1a-8-2022-05-02-05-06-32/626f66d84f5e0",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -64,6 +69,7 @@ export const ITEMS: IdolItem[] = [
     price: 150000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/Gpda-8-2026-01-29-05-25-57/697aef651474a",
     condition: 'Sealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -75,6 +81,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/nWw2-8-2023-03-29-04-21-57/6423bce5ae7f9",
     condition: 'Sealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -85,6 +92,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: 'https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/uEFv-8-2024-01-19-08-34-30/65aa341658f44',
     condition: 'Sealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -95,6 +103,7 @@ export const ITEMS: IdolItem[] = [
     price: 120000,
     image: 'https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/zxAd-8-2025-12-24-02-44-57/694b53a9520d4',
     condition: 'Sealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -105,6 +114,7 @@ export const ITEMS: IdolItem[] = [
     price: 130000,
     image: 'https://d1rypb7ac4155m.cloudfront.net/res/nogizaka46/gdgE-8-2025-08-06-08-56-26/689318baaae98',
     condition: 'Unsealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
 
   },
@@ -116,6 +126,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://storage-store.plusmember.jp/upload/images/sakurazaka_260115_Ek7g4TV5_Tamuratowel000.jpg",
     condition: 'Unsealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -126,6 +137,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://storage-store.plusmember.jp/upload/images/skr_Ds75LAY4_Buddies_towel_29.jpg",
     condition: 'Unsealed',
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -136,6 +148,7 @@ export const ITEMS: IdolItem[] = [
     price: 150000,
     image: "https://storage-store.plusmember.jp/upload/images/sakura_260106_Pu4AQjDg_photo_choco.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -146,6 +159,7 @@ export const ITEMS: IdolItem[] = [
     price: 150000,
     image: "https://storage-store.plusmember.jp/upload/images/sakura_250731MVP_shinda_uE6BJKqc_00.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -156,6 +170,7 @@ export const ITEMS: IdolItem[] = [
     price: 400000,
     image: "https://storage-store.plusmember.jp/upload/images/SKZ_250813_oshipenl_Fm6fsDJa_00_04.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -166,6 +181,7 @@ export const ITEMS: IdolItem[] = [
     price: 300000,
     image: "https://storage-store.plusmember.jp/upload/images/sakura_PenlightVer2_Zq7CK6Sw_Odakura1_00.jpg",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -176,6 +192,7 @@ export const ITEMS: IdolItem[] = [
     price: 300000,
     image: "https://storage-store.plusmember.jp/upload/images/1208_saku_t_wh_todaXd01.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -186,6 +203,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://storage-store.plusmember.jp/upload/images/SKZ_250813_JJT_Fm6fsDJa_000.jpg",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -196,6 +214,7 @@ export const ITEMS: IdolItem[] = [
     price: 130000,
     image: "https://storage-store.plusmember.jp/upload/images/skz_acst_vC7uacqd_nakagawa_01.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -206,6 +225,7 @@ export const ITEMS: IdolItem[] = [
     price: 125000,
     image: "https://storage-store.plusmember.jp/upload/images/SKRZ_5thTOUR_yamashita_acsta_q0bhR52C_00.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -216,6 +236,7 @@ export const ITEMS: IdolItem[] = [
     price: 120000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_2025shinzan_PHOTO_sorMV_wC3mRk5L_1030.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -226,6 +247,7 @@ export const ITEMS: IdolItem[] = [
     price: 100000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_250619e_animal_r7J5zvfn_0.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -236,6 +258,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_5ki_oshipenlight_PuCa8qdg_member_05.jpg",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -246,6 +269,7 @@ export const ITEMS: IdolItem[] = [
     price: 400000,
     image: "https://storage-store.plusmember.jp/upload/images/hinata_250301_Spenlight_Yb6ZXT2d_00.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -256,6 +280,7 @@ export const ITEMS: IdolItem[] = [
     price: 550000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_kawara_WHT_PiCa4qlg_1009_act00.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis.",
   },
   {
@@ -266,6 +291,7 @@ export const ITEMS: IdolItem[] = [
     price: 460000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_tour2025_longTBK_PiCa4qlg_1009_act00.jpg",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -276,6 +302,7 @@ export const ITEMS: IdolItem[] = [
     price: 250000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_2025TOUR_oshitowel_PiCa4qlg_0909_act_21.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -286,6 +313,7 @@ export const ITEMS: IdolItem[] = [
     price: 200000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_omotenasi_oshitowel_PuCa8qdg_member_07.jpg",
     condition: "Unsealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -296,6 +324,7 @@ export const ITEMS: IdolItem[] = [
     price: 140000,
     image: "https://storage-store.plusmember.jp/upload/images/HNZ_stand03_Vw8qPHiy_kosaka_01.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   },
   {
@@ -306,6 +335,7 @@ export const ITEMS: IdolItem[] = [
     price: 120000,
     image: "https://storage-store.plusmember.jp/upload/images/hinata_23_Kuramori_0_50929_Zw8psY43.jpg",
     condition: "Sealed",
+    stock: 46,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in efficitur tortor. Nunc commodo ornare ipsum, et porttitor lacus sagittis sit amet. Cras et ante lectus. Nunc non mi aliquet, aliquet turpis sit amet, elementum lorem. Suspendisse congue risus elit, ac egestas tortor consectetur sit amet. Sed varius justo non libero accumsan hendrerit. Vivamus vehicula augue non vulputate mollis."
   }
 ];

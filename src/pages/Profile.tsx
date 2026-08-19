@@ -1,17 +1,30 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import type { Order } from "../types/order";
 import {
   User,
   Package,
   Calendar,
   Clock,
-  ChevronRight,
   LogOut,
   ShoppingBag,
   Wallet,
   Receipt,
 } from "lucide-react";
 import { getGroupColors } from "../utils/groupColors";
+import { formatRupiah } from "../utils/formatRupiah";
+
+const ORDER_STEPS = ["Diproses", "Dikirim", "Selesai"] as const;
+
+const getDisplayStatus = (order: Order): (typeof ORDER_STEPS)[number] => {
+  const timestamp = Number(order.id.replace("TRX-", ""));
+  if (!Number.isFinite(timestamp)) return "Selesai";
+
+  const ageMinutes = (Date.now() - timestamp) / 60000;
+  if (ageMinutes < 2) return "Diproses";
+  if (ageMinutes < 5) return "Dikirim";
+  return "Selesai";
+};
 
 export const Profile = () => {
   const [orders] = useState<Order[]>(() => {
@@ -22,14 +35,6 @@ export const Profile = () => {
       return [];
     }
   });
-
-  const formatRupiah = (price: number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
 
   const totalItems = orders.reduce(
     (acc, order) => acc + order.items.reduce((a, item) => a + item.quantity, 0),
@@ -119,7 +124,22 @@ export const Profile = () => {
             </div>
           ) : (
             <div className="space-y-5">
-              {orders.map((order) => (
+              {orders.map((order) => {
+                const status = getDisplayStatus(order);
+                const statusChipClass =
+                  status === "Selesai"
+                    ? "bg-green-50 text-green-600"
+                    : status === "Dikirim"
+                      ? "bg-blue-50 text-blue-600"
+                      : "bg-amber-50 text-amber-600";
+                const statusDotClass =
+                  status === "Selesai"
+                    ? "bg-green-500"
+                    : status === "Dikirim"
+                      ? "bg-blue-500"
+                      : "bg-amber-500";
+
+                return (
                 <div
                   key={order.id}
                   className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
@@ -138,10 +158,42 @@ export const Profile = () => {
                       </div>
                       <div>
                         <span className="mb-0.5 block text-xs text-gray-500">Status</span>
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-bold text-green-600">
-                          <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                          {order.status}
+                        <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-bold ${statusChipClass}`}>
+                          <span className={`h-1.5 w-1.5 rounded-full ${statusDotClass}`} />
+                          {status}
                         </span>
+                      </div>
+                      <div className="flex items-center self-end">
+                        {ORDER_STEPS.map((step, i) => {
+                          const currentStep = ORDER_STEPS.indexOf(status);
+                          const done = i <= currentStep;
+
+                          return (
+                            <Fragment key={step}>
+                              <div className="flex items-center gap-1.5">
+                                <span
+                                  className={`h-2.5 w-2.5 rounded-full transition ${
+                                    done ? "bg-purple-500" : "bg-gray-200"
+                                  }`}
+                                />
+                                <span
+                                  className={`text-[11px] font-medium whitespace-nowrap ${
+                                    done ? "text-gray-800" : "text-gray-400"
+                                  }`}
+                                >
+                                  {step}
+                                </span>
+                              </div>
+                              {i < ORDER_STEPS.length - 1 && (
+                                <span
+                                  className={`mx-1.5 h-px w-5 ${
+                                    i < currentStep ? "bg-purple-400" : "bg-gray-200"
+                                  }`}
+                                />
+                              )}
+                            </Fragment>
+                          );
+                        })}
                       </div>
                     </div>
                     <div>
@@ -178,9 +230,12 @@ export const Profile = () => {
                               </p>
                             </div>
 
-                            <button className="hidden rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium transition hover:bg-gray-50 md:block">
+                            <Link
+                              to={`/product/${item.id}`}
+                              className="hidden rounded-lg border border-gray-200 px-4 py-2 text-xs font-medium transition hover:border-purple-300 hover:bg-purple-50 hover:text-purple-600 md:block"
+                            >
                               Beri Ulasan
-                            </button>
+                            </Link>
                           </div>
                         );
                       })}
@@ -191,13 +246,11 @@ export const Profile = () => {
                         <Receipt size={14} />
                         Metode Bayar: {order.paymentMethod}
                       </span>
-                      <button className="flex items-center gap-1 text-sm font-medium text-purple-500 hover:underline">
-                        Lihat Detail Transaksi <ChevronRight size={16} />
-                      </button>
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
