@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
 import { ProductDetail } from "./pages/ProductDetail";
 import { Navbar } from "./components/Navbar";
 import { CartDrawer } from "./components/CartDrawer";
@@ -10,7 +10,7 @@ import { Profile } from "./pages/Profile";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 pb-20 font-sans">
+      <div className="min-h-screen bg-gray-50 font-sans text-gray-900">
         <CartDrawer />
         <Navbar />
 
